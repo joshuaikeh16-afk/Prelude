@@ -2,7 +2,9 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { signUpWithEmail, signInWithGoogle } from "@/app/actions/auth";
+
 
 type ActionState = { error?: string } | null;
 
@@ -18,55 +20,79 @@ export default function RegisterPage() {
   );
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-6 px-4">
-      <h1 className="text-2xl font-semibold">Create your Prelude account</h1>
-
-      <form action={formAction} className="flex flex-col gap-3">
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-          className="rounded-md border px-3 py-2"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password (min 6 characters)"
-          minLength={6}
-          required
-          className="rounded-md border px-3 py-2"
-        />
-        {state?.error && (
-          <p className="text-sm text-red-600">{state.error}</p>
-        )}
-        <button
-          type="submit"
-          disabled={pending}
-          className="rounded-md bg-black px-3 py-2 text-white disabled:opacity-50"
-        >
-          {pending ? "Creating account…" : "Sign up"}
-        </button>
-      </form>
-
-      <div className="flex items-center gap-3 text-sm text-gray-500">
-        <span className="h-px flex-1 bg-gray-200" />
-        or
-        <span className="h-px flex-1 bg-gray-200" />
+    <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-6 px-5 py-12">
+      <div className="flex flex-col items-center text-center rise">
+        <div className="eyebrow flex items-center gap-1.5 mb-2">
+          <Image src="/rixie-app-icon.png" alt="" width={30} height={30} className="rounded-[10px]" />
+          <span>RIXIE</span>
+        </div>
+        <h1 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
+          Create your account
+        </h1>
+        <p className="text-xs text-[var(--text-secondary)] mt-1">
+          Prepare for what&rsquo;s next.
+        </p>
       </div>
 
-      <form action={async () => { await signInWithGoogle(); }}>
-        <button
-          type="submit"
-          className="w-full rounded-md border px-3 py-2 font-medium"
-        >
-          Continue with Google
-        </button>
-      </form>
+      <div className="surface-card p-6 rounded-3xl rise-1">
+        <form action={formAction} className="flex flex-col gap-3.5">
+          <label className="flex flex-col gap-1">
+            <span className="text-xs font-medium text-[var(--text-secondary)]">Email</span>
+            <input
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+              className="rounded-2xl border border-[var(--line)] bg-white/[0.04] px-4 py-2.5 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--accent)] focus:shadow-[0_0_12px_var(--accent-glow)]"
+            />
+          </label>
 
-      <p className="text-center text-sm text-gray-500">
+          <label className="flex flex-col gap-1">
+            <span className="text-xs font-medium text-[var(--text-secondary)]">Password</span>
+            <input
+              type="password"
+              name="password"
+              placeholder="At least 6 characters"
+              minLength={6}
+              required
+              className="rounded-2xl border border-[var(--line)] bg-white/[0.04] px-4 py-2.5 text-sm text-[var(--text-primary)] outline-none transition focus:border-[var(--accent)] focus:shadow-[0_0_12px_var(--accent-glow)]"
+            />
+          </label>
+
+          {state?.error && (
+            <p className="rounded-xl border border-red-500/30 bg-red-500/10 p-2.5 text-xs font-medium text-red-400">
+              {state.error}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={pending}
+            className="mt-1 flex items-center justify-center rounded-2xl bg-[var(--accent)] py-3 text-sm font-semibold text-white shadow-md shadow-[var(--accent-glow)] transition hover:brightness-110 active:scale-98 disabled:opacity-50"
+          >
+            {pending ? "Creating account…" : "Sign up"}
+          </button>
+        </form>
+
+        <div className="my-5 flex items-center gap-3 text-xs text-[var(--text-muted)]">
+          <span className="h-px flex-1 bg-[var(--line)]" />
+          <span>or</span>
+          <span className="h-px flex-1 bg-[var(--line)]" />
+        </div>
+
+        <form action={async () => { await signInWithGoogle(); }}>
+          <button
+            type="submit"
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-[var(--line)] bg-white/[0.04] py-2.5 text-sm font-medium text-[var(--text-primary)] transition hover:bg-white/[0.07] active:scale-98"
+          >
+            Continue with Google
+          </button>
+        </form>
+      </div>
+
+      <p className="text-center text-xs text-[var(--text-secondary)] rise-2">
         Already have an account?{" "}
-        <Link href="/login" className="underline">
+        <Link href="/login" className="font-semibold text-[var(--accent)] hover:underline">
           Log in
         </Link>
       </p>

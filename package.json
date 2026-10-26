@@ -6,10 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "check:gmail": "node scripts/check-gmail.mjs",
-    "mail:worker": "node scripts/mail-worker.mjs",
-    "mail:dispatch": "node scripts/mail-worker.mjs --once"
+    "lint": "eslint"
   },
   "dependencies": {
     "@robasedev/sdk": "^1.0.0",

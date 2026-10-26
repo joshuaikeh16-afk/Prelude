@@ -8,6 +8,14 @@ export const accentColors = {
 
 export type AccentColor = keyof typeof accentColors;
 
+export const accentList: Array<{ id: AccentColor; name: string; hex: string }> = [
+  { id: "red", name: "Red", hex: accentColors.red },
+  { id: "purple", name: "Purple", hex: accentColors.purple },
+  { id: "blue", name: "Blue", hex: accentColors.blue },
+  { id: "green", name: "Green", hex: accentColors.green },
+  { id: "orange", name: "Orange", hex: accentColors.orange },
+];
+
 export function accentHex(color: string | null | undefined): string {
-  return accentColors[(color ?? "red") as AccentColor] ?? accentColors.red;
+  return accentColors[(color ?? "purple") as AccentColor] ?? accentColors.purple;
 }

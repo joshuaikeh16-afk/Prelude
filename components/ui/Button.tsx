@@ -3,13 +3,15 @@ import { ButtonHTMLAttributes, ReactNode } from "react";
 type Variant = "primary" | "secondary" | "ghost";
 
 const base =
-  "press-on-tap inline-flex items-center justify-center gap-2 rounded-2xl font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+  "press-on-tap inline-flex items-center justify-center gap-2 rounded-2xl font-semibold transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.97]";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-[var(--accent)] text-black hover:brightness-110",
+  primary:
+    "bg-[var(--accent)] text-white shadow-md shadow-[var(--accent-glow)] hover:brightness-110",
   secondary:
-    "border border-[var(--line)] bg-white/[0.04] text-[var(--text-primary)] hover:bg-white/[0.07]",
-  ghost: "text-[var(--text-secondary)] hover:text-[var(--text-primary)]",
+    "border border-[var(--line)] bg-[var(--surface-glass)] backdrop-blur-md text-[var(--text-primary)] hover:border-[var(--line-strong)] hover:bg-[var(--surface-hover)]",
+  ghost:
+    "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/[0.04]",
 };
 
 const sizes = {

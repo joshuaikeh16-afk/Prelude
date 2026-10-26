@@ -62,7 +62,7 @@ export async function POST(request: Request) {
     }
 
     const payload = JSON.stringify({
-      title: "Prelude",
+      title: "Rixie",
       body: "Notifications are working. You're ready for what's next.",
       tag: `prelude-test-${Date.now()}`,
       url: "index.html",

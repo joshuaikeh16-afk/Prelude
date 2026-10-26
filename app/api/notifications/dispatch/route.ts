@@ -85,7 +85,7 @@ export async function GET(request: Request) {
       )
         return "skipped";
       const payload = JSON.stringify({
-        title: timer ? "Time’s up" : "Prelude",
+        title: timer ? "Time’s up" : "Rixie",
         body: timer
           ? `${alert.task_title} is still incomplete. Open it to finish or extend.`
           : alert.title,

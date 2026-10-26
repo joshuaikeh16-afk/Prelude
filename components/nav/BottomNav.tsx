@@ -4,43 +4,47 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { House, CalendarRange, Plus, Calendar } from "lucide-react";
 
-const items = [
-  { href: "/dashboard", label: "Home", Icon: House },
-  { href: "/events", label: "Events", Icon: CalendarRange },
-] as const;
-
 export function BottomNav() {
   const pathname = usePathname();
 
+  const isHome = pathname === "/dashboard" || pathname === "/";
+  const isEvents = pathname.startsWith("/events") && pathname !== "/events/new";
+  const isCalendar = pathname === "/calendar";
+
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--line)] bg-[#09090a]/95 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[620px] items-center justify-between px-6 pb-[max(env(safe-area-inset-bottom,0px),14px)] pt-3">
+    <nav
+      aria-label="Main navigation"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--line)] bg-[#09090c]/90 backdrop-blur-2xl"
+    >
+      <div className="relative mx-auto flex max-w-[620px] items-center justify-around px-4 pb-[max(env(safe-area-inset-bottom,0px),14px)] pt-2.5">
         <NavLink
-          href={items[0].href}
-          label={items[0].label}
-          Icon={items[0].Icon}
-          active={pathname === items[0].href}
-        />
-        <NavLink
-          href={items[1].href}
-          label={items[1].label}
-          Icon={items[1].Icon}
-          active={pathname === items[1].href}
+          href="/dashboard"
+          label="Home"
+          Icon={House}
+          active={isHome}
         />
 
+        <NavLink
+          href="/events"
+          label="Events"
+          Icon={CalendarRange}
+          active={isEvents}
+        />
+
+        {/* Center Standout Accent "+" Button with gentle idle pulse */}
         <Link
           href="/events/new"
           aria-label="Create event"
-          className="press-on-tap -mt-7 grid h-14 w-14 place-items-center rounded-full bg-[var(--accent)] text-black shadow-lg shadow-[var(--accent)]/30"
+          className="create-nav -mt-7 grid h-14 w-14 place-items-center rounded-full bg-[var(--accent)] text-white shadow-lg shadow-[var(--accent-glow)] transition-transform duration-200 active:scale-95 hover:scale-105"
         >
-          <Plus size={26} />
+          <Plus size={26} strokeWidth={2.5} />
         </Link>
 
         <NavLink
           href="/calendar"
           label="Calendar"
           Icon={Calendar}
-          active={pathname === "/calendar"}
+          active={isCalendar}
         />
       </div>
     </nav>
@@ -59,14 +63,27 @@ function NavLink({
   active: boolean;
 }) {
   return (
-    <Link href={href} className="flex flex-col items-center gap-1 px-3 py-1">
+    <Link
+      href={href}
+      aria-current={active ? "page" : undefined}
+      className="relative flex flex-col items-center gap-1 px-4 py-1.5 transition-transform duration-150 active:scale-95"
+    >
+      {/* Sliding active indicator glow pill behind active item */}
+      {active && (
+        <span
+          className="absolute inset-0 -z-10 rounded-2xl bg-[var(--accent-soft)]/50 border border-[var(--accent-border,rgba(255,59,100,0.25))] transition-all duration-300"
+          aria-hidden="true"
+        />
+      )}
+
       <Icon
         size={22}
-        strokeWidth={active ? 2.25 : 1.75}
+        strokeWidth={2}
+        className="transition-colors duration-200"
         color={active ? "var(--accent)" : "var(--text-muted)"}
       />
       <span
-        className="text-[10px] font-medium"
+        className="text-[11px] font-medium tracking-tight transition-colors duration-200"
         style={{ color: active ? "var(--accent)" : "var(--text-muted)" }}
       >
         {label}

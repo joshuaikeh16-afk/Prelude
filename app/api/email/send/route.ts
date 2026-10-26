@@ -30,10 +30,10 @@ export async function POST(request: Request) {
         error.message.includes("Please wait") ? 429 : 503,
       );
     const sent = await new Resend(process.env.RESEND_API_KEY).emails.send({
-      from: process.env.RESEND_FROM || "Prelude <onboarding@resend.dev>",
+      from: process.env.RESEND_FROM || "Rixie <onboarding@resend.dev>",
       to: address,
-      subject: "Your Prelude verification code",
-      html: `<p>Your Prelude verification code:</p><h1>${code}</h1><p>It expires in 10 minutes.</p>`,
+      subject: "Your Rixie verification code",
+      html: `<p>Your Rixie verification code:</p><h1>${code}</h1><p>It expires in 10 minutes.</p>`,
     });
     if (sent.error) {
       await client
